@@ -3,7 +3,12 @@
   "theme": "mint",
   "name": "Sterndesk",
   "colors": {
-    "primary": "#16A34A"
+    "primary": "#2A6FF5",
+    "light": "#2A6FF5"
+  },
+  "logo": {
+    "light": "/logo.svg",
+    "dark": "/logo-light.svg"
   },
   "navigation": {
     "tabs": [

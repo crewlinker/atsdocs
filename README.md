@@ -21,6 +21,11 @@ the **API reference** tab at the OpenAPI document the backend itself serves:
 https://edge.test.sterndesk.com/api/openapi.yaml
 ```
 
+That is staging. Production answers `{"code":"unimplemented"}` at the same path, because the release
+carrying the handler has not shipped yet; pointing at it would fail every build. Switch the URL to
+`https://edge.sterndesk.com/api/openapi.yaml` once a production release serves it. Until then the
+reference can describe an operation staging has and production does not.
+
 atsback generates that document from its ConnectRPC service definitions and embeds it in the binary,
 so it describes the API that is actually deployed. Every endpoint page here is generated from it. No
 endpoint is described by hand, which is what makes it impossible for this site to document an
@@ -45,12 +50,17 @@ unreachable or malformed specification therefore fails a pull request here rathe
 
 Merging to `main` deploys the site. Mintlify's GitHub App watches this repository and builds the
 configured branch; there is no deploy workflow in `.github/workflows` because the build does not run
-in GitHub Actions. Configure the repository and branch under
-[Git Settings](https://dashboard.mintlify.com/settings/deployment/git-settings) in the Mintlify
-dashboard.
-
-Pull requests get a preview deployment from the same app, and
+in GitHub Actions. Pull requests get a preview deployment from the same app, and
 [`checks.yml`](.github/workflows/checks.yml) validates the build before merge.
+
+This site is a **second deployment** in the `sterndesk` Mintlify organization. The first one builds
+`basewarphq/recode-service` from its `docs/` directory and is live at `docs.sterndesk.com`; that is
+the Recode document-extraction API, a different product. Do not repoint it at this repository — an
+organization may hold several deployments, so this one gets its own. (The Enterprise "multi-repo"
+feature is for combining repositories into a *single* site, which is not what we want here.)
+
+Its Git settings are `crewlinker/atsdocs`, branch `main`, subdirectory off, since `docs.json` lives
+at the repository root.
 
 ### Triggering a rebuild from atsback
 
