@@ -1,0 +1,12 @@
+[tools]
+node = "lts"
+# Mintlify's CLI, used for local preview and for validating docs.json and the OpenAPI
+# specification in CI. It does not render the published site: mintlify.com builds that with its own
+# version of the toolchain, so this pin only has to be new enough to catch our own mistakes.
+"npm:mint" = "4.2.922"
+
+actionlint = "latest"
+shellcheck = "latest"
+shfmt = "latest"
+yamlfmt = "latest"
+zizmor = "latest"

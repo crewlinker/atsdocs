@@ -1,0 +1,8 @@
+# Mintlify CLI
+.mintlify/
+node_modules/
+
+# Editor/IDE
+.DS_Store
+.idea/
+.vscode/
