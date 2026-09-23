@@ -10,6 +10,7 @@
     "light": "/logo.svg",
     "dark": "/logo-light.svg"
   },
+  "favicon": "/assets/icon.svg",
   "navigation": {
     "tabs": [
       {
