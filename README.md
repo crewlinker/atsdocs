@@ -16,6 +16,22 @@ You can also edit in [Mintlify's web editor](https://app.mintlify.com), which ne
 Publishing from there opens a pull request rather than writing to `main`, so editor changes run the
 same checks as a `git push`. See [What the checks catch](#what-the-checks-catch).
 
+### Previewing the API reference
+
+The endpoint pages do not exist as files. They are generated during a build from the URL in
+`docs.json`, so only a preview that performs a build can show them:
+
+| Preview                               | Shows the 66 endpoint pages           |
+| ------------------------------------- | ------------------------------------- |
+| `mise run dev:run`                    | yes, it fetches the URL and builds    |
+| Pull request preview deployment       | yes, same builder as production       |
+| Web editor's file tree                | no, it lists files in the repository  |
+
+The editor's navigation tree showing **No pages inside** under the `OPENAPI` group is therefore
+expected and permanent, not a fault. The group has no files to list because the reference is not
+committed here, which is the whole point. Judge a change to the reference from a local preview or
+the pull request's preview deployment.
+
 ## What the checks catch
 
 `main` is protected: every change arrives by pull request and `checks.yml` has to pass. That applies
