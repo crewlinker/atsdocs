@@ -12,6 +12,33 @@ mise run dev:run     # preview at http://localhost:3000
 mise run 'check:*'   # what CI runs
 ```
 
+You can also edit in [Mintlify's web editor](https://app.mintlify.com), which needs no checkout.
+Publishing from there opens a pull request rather than writing to `main`, so editor changes run the
+same checks as a `git push`. See [What the checks catch](#what-the-checks-catch).
+
+## What the checks catch
+
+`main` is protected: every change arrives by pull request and `checks.yml` has to pass. That applies
+to the web editor too, which would otherwise merge straight into the deployment branch and publish
+whatever it merged. Four things are enforced.
+
+- **`check:docs`** runs `mint validate`, which fetches the OpenAPI document named in `docs.json` and
+  parses it — the same fetch a hosted build does — then checks every page the navigation references
+  exists. It also checks the images `docs.json` points at exist, which `mint validate` does not.
+- **`check:urls`** builds the site and requires it to answer every URL the published site answers,
+  taking `docs.sterndesk.com/sitemap.xml` as the contract. Mintlify derives a page's URL from its
+  file path, so renaming, moving, or deleting a page silently 404s every reader holding the old
+  link, and a build that does that is still internally valid. Moving a page on purpose costs one
+  `redirects` entry in `docs.json`, which the check then accepts.
+- **`check:generated`** fails if an OpenAPI document or a hand-written endpoint page is committed.
+  See [How the API reference stays current](#how-the-api-reference-stays-current) for why that rule
+  exists; the editor's agent will produce either one if asked to "document the API".
+- **`check:lint`** and **`check:changes`** cover the shell scripts, the workflows, and formatting.
+
+`check:docs` and `check:urls` both reach the public internet — for the OpenAPI document and for the
+published sitemap. That is deliberate: a specification the build cannot fetch has to fail a pull
+request here rather than a deploy.
+
 ## How the API reference stays current
 
 The API reference is not written here and is not a copy of anything. [`docs.json`](docs.json) points
@@ -53,11 +80,14 @@ configured branch; there is no deploy workflow in `.github/workflows` because th
 in GitHub Actions. Pull requests get a preview deployment from the same app, and
 [`checks.yml`](.github/workflows/checks.yml) validates the build before merge.
 
-This site is a **second deployment** in the `sterndesk` Mintlify organization. The first one builds
-`basewarphq/recode-service` from its `docs/` directory and is live at `docs.sterndesk.com`; that is
-the Recode document-extraction API, a different product. Do not repoint it at this repository — an
-organization may hold several deployments, so this one gets its own. (The Enterprise "multi-repo"
-feature is for combining repositories into a *single* site, which is not what we want here.)
+This site is live at `docs.sterndesk.com`, and also at `atsdocs.mintlify.app`.
+
+It is the **second deployment** in the `sterndesk` Mintlify organization. The first one builds
+`basewarphq/recode-service` from its `docs/` directory — that is the Recode document-extraction
+API, a different product — and it is live at `sterndesk.mintlify.app`. Do not repoint it at this
+repository: an organization may hold several deployments, so this one gets its own. (The Enterprise
+"multi-repo" feature is for combining repositories into a *single* site, which is not what we want
+here.)
 
 Its Git settings are `crewlinker/atsdocs`, branch `main`, subdirectory off, since `docs.json` lives
 at the repository root.
@@ -80,4 +110,12 @@ refreshes the reference:
 ```
 
 It needs `MINTLIFY_PROJECT_ID` as a repository variable and `MINTLIFY_API_KEY` as a secret, the same
-two values this repository uses for its scheduled rebuild.
+two values this repository uses for its scheduled rebuild. Both come from the Mintlify dashboard.
+
+Set them in this repository too. Until they exist, `sync_openapi.yml` fails on every run and the
+reference is only as fresh as the last push, which defeats the point of the backstop:
+
+```shell
+gh variable set MINTLIFY_PROJECT_ID --repo crewlinker/atsdocs
+gh secret   set MINTLIFY_API_KEY    --repo crewlinker/atsdocs
+```
