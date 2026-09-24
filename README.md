@@ -61,13 +61,13 @@ The API reference is not written here and is not a copy of anything. [`docs.json
 the **API reference** tab at the OpenAPI document the backend itself serves:
 
 ```
-https://edge.test.sterndesk.com/api/openapi.yaml
+https://edge.sterndesk.com/api/openapi.yaml
 ```
 
-That is staging. Production answers `{"code":"unimplemented"}` at the same path, because the release
-carrying the handler has not shipped yet; pointing at it would fail every build. Switch the URL to
-`https://edge.sterndesk.com/api/openapi.yaml` once a production release serves it. Until then the
-reference can describe an operation staging has and production does not.
+That is production, and it is the same host the endpoint pages tell readers to call, so the
+reference cannot describe an operation production does not serve. It pointed at
+`edge.test.sterndesk.com` until 24 September 2026, while the release carrying the handler had not
+shipped and production still answered `{"code":"unimplemented"}`.
 
 atsback generates that document from its ConnectRPC service definitions and embeds it in the binary,
 so it describes the API that is actually deployed. Every endpoint page here is generated from it. No
@@ -89,9 +89,7 @@ So the reference can go stale, and the backstop reports rather than repairs.
 [`sync_openapi.yml`](.github/workflows/sync_openapi.yml) runs
 [`deploy:watch`](.mise-tasks/deploy/watch.sh) daily, which needs no key: it counts the operations in
 the specification and the endpoint pages in the published sitemap, and opens an issue when those
-disagree, because every operation becomes exactly one generated page. The same task opens an issue
-the day production starts serving the specification, so the reference stops pointing at staging
-without anyone having to remember to check.
+disagree, because every operation becomes exactly one generated page.
 
 A rebuild is then a push to `main` or **Update** in the Mintlify dashboard.
 

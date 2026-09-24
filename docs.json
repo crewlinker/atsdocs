@@ -31,7 +31,7 @@
           },
           {
             "group": "Endpoints",
-            "openapi": "https://edge.test.sterndesk.com/api/openapi.yaml"
+            "openapi": "https://edge.sterndesk.com/api/openapi.yaml"
           }
         ]
       }
