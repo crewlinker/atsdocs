@@ -5,9 +5,7 @@ name: Watch OpenAPI
 #
 # deploy:trigger is the fix, but Mintlify's REST API needs a plan this organization does not have,
 # so it skips. deploy:watch is the fallback that works without one: it compares the published site
-# against the specification the backend serves and opens an issue when they disagree, and another
-# when production starts serving the specification and the reference should stop pointing at
-# staging.
+# against the specification the backend serves and opens an issue when they disagree.
 on:
   schedule:
     - cron: "17 5 * * *"
