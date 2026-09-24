@@ -18,22 +18,21 @@
         "groups": [
           {
             "group": "Get started",
-            "pages": ["index"]
+            "pages": [
+              "index"
+            ]
+          },
+          {
+            "group": "API reference",
+            "pages": [
+              "api-reference/overview"
+            ]
           }
         ]
       },
       {
         "tab": "API reference",
-        "groups": [
-          {
-            "group": "About",
-            "pages": ["api-reference/overview"]
-          },
-          {
-            "group": "Endpoints",
-            "openapi": "https://edge.sterndesk.com/api/openapi.yaml"
-          }
-        ]
+        "openapi": "https://edge.sterndesk.com/api/openapi.yaml"
       }
     ]
   },
