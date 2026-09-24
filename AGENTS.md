@@ -8,10 +8,16 @@ Bash releases. Avoid Bash 4+ features such as associative arrays, `mapfile`, `${
 Use shfmt's default formatting; `dev:fmt` applies it.
 
 **Checks:** After changes, run `mise run 'check:*'`. `check:changes` runs `dev:fmt` and, under
-`CI=true`, fails when formatting differs from the checked-in tree.
+`CI=true`, fails when formatting differs from the checked-in tree. `check:docs` and `check:urls`
+reach the public internet, for the OpenAPI document and for the published sitemap.
+
+**Page URLs:** A page's URL is its file path, so renaming, moving, or deleting a page breaks every
+link to it, and the build that does so is still internally valid. `check:urls` holds this build to
+the URLs the published site already serves. When a move is intended, add the old address to
+`redirects` in `docs.json` in the same change.
 
 **API reference:** Never commit an OpenAPI document or a hand-written endpoint page. The reference is
 generated from the document the backend serves, referenced by URL in `docs.json`, so that it cannot
 describe an API that is not deployed. Adding endpoint pages by hand reintroduces exactly the drift
 that arrangement exists to prevent. Changes to the documented surface belong in atsback's protobuf
-definitions.
+definitions. `check:generated` enforces this.
