@@ -19,18 +19,18 @@ same checks as a `git push`. See [What the checks catch](#what-the-checks-catch)
 ### Previewing the API reference
 
 The endpoint pages do not exist as files. They are generated during a build from the URL in
-`docs.json`, so only a preview that performs a build can show them:
+`docs.json`, so only a preview that performs a build can show them.
 
-| Preview                               | Shows the 66 endpoint pages           |
-| ------------------------------------- | ------------------------------------- |
-| `mise run dev:run`                    | yes, it fetches the URL and builds    |
-| Pull request preview deployment       | yes, same builder as production       |
-| Web editor's file tree                | no, it lists files in the repository  |
+**`mise run dev:run` is the only preview here that does.** It fetches the URL, builds, and serves all
+66 endpoint pages at <http://localhost:3000>.
 
-The editor's navigation tree showing **No pages inside** under the `OPENAPI` group is therefore
-expected and permanent, not a fault. The group has no files to list because the reference is not
-committed here, which is the whole point. Judge a change to the reference from a local preview or
-the pull request's preview deployment.
+Mintlify's pull request preview deployments would also work, but they need a Pro plan; on ours the
+**Mintlify Deployment** check reports `Skipping deployment` on every pull request. The web editor's
+navigation tree is not a build at all — it lists files in the repository, so the `OPENAPI` group
+shows **No pages inside** and always will. That is not a fault. The group has no files to list
+because the reference is not committed here, which is the whole point.
+
+So judge a change to the reference from a local preview, not from the editor's tree.
 
 ## What the checks catch
 
