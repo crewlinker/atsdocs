@@ -59,16 +59,25 @@ endpoint is described by hand, which is what makes it impossible for this site t
 operation the API does not have.
 
 Mintlify downloads the document **during each build**, not on each page view. So the reference is a
-snapshot, and it is only as fresh as the last build. Two things keep that window small:
+snapshot, and it is only as fresh as the last build. Because the specification is fetched rather
+than committed, any build from any cause picks up the current document — a committed copy would
+stay wrong until somebody noticed.
 
-- **atsback triggers a rebuild when it deploys.** A backend release changes the published
-  specification without pushing anything to this repository, so the deploy pipeline calls Mintlify's
-  update endpoint. See [Triggering a rebuild from atsback](#triggering-a-rebuild-from-atsback).
-- **[`sync_openapi.yml`](.github/workflows/sync_openapi.yml) rebuilds daily** as a backstop, in case
-  that call is ever skipped or fails.
+What we cannot do is make a backend release cause a build. Mintlify rebuilds on a push to the docs
+branch, and a backend deploy is not such a push; the remedy is Mintlify's update endpoint, which
+needs an admin API key sold with their **Pro and Enterprise plans**. The dashboard shows admin keys
+as unavailable on ours, so [`deploy:trigger`](.mise-tasks/deploy/trigger.sh) skips with a note
+instead of failing, and this stays open until somebody buys the plan.
 
-Because the specification is fetched rather than committed, drift is self-healing: any build, from
-any cause, picks up the current document. A committed copy would stay wrong until somebody noticed.
+So the reference can go stale, and the backstop reports rather than repairs.
+[`sync_openapi.yml`](.github/workflows/sync_openapi.yml) runs
+[`deploy:watch`](.mise-tasks/deploy/watch.sh) daily, which needs no key: it counts the operations in
+the specification and the endpoint pages in the published sitemap, and opens an issue when those
+disagree, because every operation becomes exactly one generated page. The same task opens an issue
+the day production starts serving the specification, so the reference stops pointing at staging
+without anyone having to remember to check.
+
+A rebuild is then a push to `main` or **Update** in the Mintlify dashboard.
 
 `mise run check:docs` runs `mint validate`, which performs the same fetch a hosted build does. An
 unreachable or malformed specification therefore fails a pull request here rather than a deploy.
@@ -94,8 +103,13 @@ at the repository root.
 
 ### Triggering a rebuild from atsback
 
-Add this to atsback's `deploy_release.yml`, after the `deploy infra` step, so a production release
-refreshes the reference:
+**Blocked on a Mintlify plan.** The update endpoint authenticates with an admin API key, and
+Mintlify's dashboard offers admin keys only on Pro and Enterprise. `MINTLIFY_PROJECT_ID` is already
+set here as a repository variable (`6ab3cdeb59976d19c8626e39`); `MINTLIFY_API_KEY` cannot exist yet.
+
+Once the plan allows it, create the key on the [API keys
+page](https://app.mintlify.com/settings/organization/api-keys), add it as a secret here and in
+atsback, and add this to atsback's `deploy_release.yml` after the `deploy infra` step:
 
 ```yaml
 - name: refresh published API documentation
@@ -109,13 +123,9 @@ refreshes the reference:
     MINTLIFY_API_KEY: ${{ secrets.MINTLIFY_API_KEY }}
 ```
 
-It needs `MINTLIFY_PROJECT_ID` as a repository variable and `MINTLIFY_API_KEY` as a secret, the same
-two values this repository uses for its scheduled rebuild. Both come from the Mintlify dashboard.
-
-Set them in this repository too. Until they exist, `sync_openapi.yml` fails on every run and the
-reference is only as fresh as the last push, which defeats the point of the backstop:
-
 ```shell
-gh variable set MINTLIFY_PROJECT_ID --repo crewlinker/atsdocs
-gh secret   set MINTLIFY_API_KEY    --repo crewlinker/atsdocs
+gh secret set MINTLIFY_API_KEY --repo crewlinker/atsdocs
 ```
+
+`deploy:trigger` starts working the moment that secret exists; nothing else has to change. Until
+then `deploy:watch` reports the drift this call would have prevented.

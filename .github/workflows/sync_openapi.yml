@@ -1,19 +1,25 @@
-name: Sync OpenAPI
+name: Watch OpenAPI
 # Mintlify downloads the OpenAPI document at build time and rebuilds only when the docs branch is
-# pushed. A backend release changes the published specification without touching this repository,
-# so nothing would rebuild the site. atsback triggers a rebuild as part of its own deploy; this
-# schedule is the backstop that bounds how long the reference can lag if that call is ever skipped
-# or fails, and it costs one API call a day.
+# pushed. A backend release changes the published specification without touching this repository, so
+# nothing would rebuild the site and the reference would quietly describe an older API.
+#
+# deploy:trigger is the fix, but Mintlify's REST API needs a plan this organization does not have,
+# so it skips. deploy:watch is the fallback that works without one: it compares the published site
+# against the specification the backend serves and opens an issue when they disagree, and another
+# when production starts serving the specification and the reference should stop pointing at
+# staging.
 on:
   schedule:
     - cron: "17 5 * * *"
   workflow_dispatch:
-permissions:
-  contents: read
+permissions: {}
 jobs:
-  trigger:
+  watch:
     runs-on: ubuntu-24.04
-    timeout-minutes: 5
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      issues: write
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
@@ -23,3 +29,7 @@ jobs:
         env:
           MINTLIFY_PROJECT_ID: ${{ vars.MINTLIFY_PROJECT_ID }}
           MINTLIFY_API_KEY: ${{ secrets.MINTLIFY_API_KEY }}
+      - run: mise run deploy:watch
+        env:
+          GH_REPO: ${{ github.repository }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
