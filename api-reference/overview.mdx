@@ -14,16 +14,10 @@ Sterndesk API operations are sent as `POST` requests to paths under `/rpc/`.
 Authenticate each request using your personal API key:
 
 ```text
-```
-
-```text
 Authorization: Bearer <API_KEY>
 ```
 
 Requests also require the following headers:
-
-```text
-```
 
 ```text
 Connect-Protocol-Version: 1
@@ -31,9 +25,6 @@ Content-Type: application/json
 ```
 
 A typical request looks like this:
-
-```text
-```
 
 ```text
 curl https://edge.sterndesk.com/rpc/<service>/<operation> \
@@ -58,9 +49,6 @@ Call `CreateManualUpload` to create a manual upload.
 The operation returns signed, time-limited `params` and `signature` values that are required to upload the files.
 
 Your API key must include the following permission:
-
-```text
-```
 
 ```text
 sterndesk:documents:write
