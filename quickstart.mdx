@@ -1,0 +1,93 @@
+---
+title: "Quickstart"
+description: "Make your first Sterndesk API request."
+---
+
+This guide walks you through creating an API key, configuring authentication, and verifying your connection to the Sterndesk API.
+
+### Before you begin
+
+You'll need:
+
+- A Sterndesk account.
+- Access to a Sterndesk organization.
+- A personal API key.
+- A tool capable of making HTTP requests, such as cURL.
+
+### 1. Create an API key
+
+Sign in to Sterndesk and go to:
+
+**Settings → My account → API Keys**
+
+Click **Create API key** and configure your key.
+
+Choose a descriptive name so you can identify what the key is being used for later.
+
+Select the permissions required by your integration and create the key.
+
+> **Important**<br />Your API key is shown only once after creation. Copy and store it securely. You won't be able to view the full key again.
+
+### 2. Store your API key
+
+For local development, you can store your API key in an environment variable:
+
+```text
+```
+
+```text
+export STERNDESK_API_KEY="your-api-key"
+```
+
+Avoid hard-coding API keys directly into your application.
+
+### 3. Make your first request
+
+Use the `WhoAmI` operation to verify that your API key is working.
+
+```text
+```
+
+```text
+curl https://edge.sterndesk.com/rpc/rpc.v1.RootService/WhoAmI \
+  --header "Authorization: Bearer $STERNDESK_API_KEY" \
+  --header "Connect-Protocol-Version: 1" \
+  --header "Content-Type: application/json" \
+  --data '{}'
+```
+
+The request authenticates using your personal API key and returns information associated with the authenticated API context.
+
+If the request succeeds, your API key is configured correctly and you can start calling other available operations.
+
+### 4. Explore the API
+
+Sterndesk uses Connect RPC over HTTP/JSON.
+
+API operations are sent as `POST` requests to paths under `/rpc/`.
+
+Requests typically include:
+
+```text
+```
+
+```text
+Authorization: Bearer <API_KEY>
+Connect-Protocol-Version: 1
+Content-Type: application/json
+```
+
+The required JSON body depends on the operation you are calling.
+
+Use the **API Reference** to explore available operations, request schemas, responses, and required permissions.
+
+**Explore the API Reference →**
+
+### Next steps
+
+Now that you've made your first request, you can:
+
+- <br />Explore available operations in the **API Reference**.<br />
+- <br />Learn more about **Authentication** and API key permissions.<br />
+- <br />Use the API Reference playground to test individual operations.<br />
+- <br />Create separate API keys for different integrations or workflows when appropriate.<br />
