@@ -54,6 +54,12 @@
       "type": "button",
       "label": "Open Sterndesk",
       "href": "https://crewlinker.slack.com/archives/D0399GMTGTY/p1790240176349299"
-    }
+    },
+    "links": [
+      {
+        "href": "https://www.sterndesk.com/",
+        "label": "Sterndesk.com"
+      }
+    ]
   }
 }
