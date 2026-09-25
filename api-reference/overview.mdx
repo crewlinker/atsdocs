@@ -60,7 +60,9 @@ Send the candidate documents to Transloadit using the `params` and `signature` r
 
 This request is sent directly to Transloadit rather than to the Sterndesk API, so it does not require your Sterndesk API key.
 
-> **Important:** Send the `params` and `signature` values exactly as they were returned by `CreateManualUpload`. Re-serializing the JSON can invalidate the signature.
+<Info>
+  **Important:** Send the `params` and `signature` values exactly as they were returned by `CreateManualUpload`. Re-serializing the JSON can invalidate the signature.
+</Info>
 
 See **Upload the files of a manual upload** in the API Reference for the complete request specification.
 
