@@ -44,5 +44,8 @@
     "socials": {
       "website": "https://sterndesk.com"
     }
+  },
+  "thumbnails": {
+    "background": "/images/{DeveloperDocumentation}.png"
   }
 }
