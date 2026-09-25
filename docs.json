@@ -20,7 +20,6 @@
           {
             "group": "Get started",
             "pages": [
-              "index",
               "untitled-page",
               "quickstart",
               "authentication"
