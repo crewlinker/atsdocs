@@ -49,7 +49,7 @@ curl https://edge.sterndesk.com/rpc/rpc.v1.RootService/WhoAmI \
   --header "Authorization: Bearer $STERNDESK_API_KEY" \
   --header "Connect-Protocol-Version: 1" \
   --header "Content-Type: application/json" \
-  --data '{}'
+  --data '{"echo":"bar"}'
 ```
 
 The request authenticates using your personal API key and returns information associated with the authenticated API context.
