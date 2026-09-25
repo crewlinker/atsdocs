@@ -4,7 +4,8 @@
   "name": "Sterndesk",
   "colors": {
     "primary": "#2A6FF5",
-    "light": "#2A6FF5"
+    "light": "#2A6FF5",
+    "dark": "#2B6FF5"
   },
   "logo": {
     "light": "/logo.svg",
@@ -19,11 +20,13 @@
           {
             "group": "Get started",
             "pages": [
-              "index"
+              "untitled-page",
+              "quickstart",
+              "authentication"
             ]
           },
           {
-            "group": "API reference",
+            "group": "Using the API",
             "pages": [
               "api-reference/overview"
             ]
@@ -40,5 +43,22 @@
     "socials": {
       "website": "https://sterndesk.com"
     }
+  },
+  "thumbnails": {
+    "background": "/images/{DeveloperDocumentation}.png"
+  },
+  "description": "Developer documentation for the Sterndesk API. Learn how to authenticate, integrate Sterndesk with your tools and workflows, and explore the API reference.",
+  "navbar": {
+    "primary": {
+      "type": "button",
+      "label": "Open Sterndesk",
+      "href": "https://crewlinker.slack.com/archives/D0399GMTGTY/p1790240176349299"
+    },
+    "links": [
+      {
+        "href": "https://www.sterndesk.com/",
+        "label": "Sterndesk.com"
+      }
+    ]
   }
 }

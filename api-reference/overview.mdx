@@ -1,28 +1,75 @@
 ---
-title: "Overview"
-description: "How the endpoint pages are generated and what they cover."
+title: "API overview"
+description: "Learn how to call Sterndesk API operations and upload candidate documents."
 ---
 
-Every page under **Endpoints** is generated from the OpenAPI document the backend serves at
-`/api/openapi.yaml`. Nothing in this repository describes an endpoint by hand, so the reference
-cannot describe an operation the running API does not have.
+The Sterndesk API uses Connect RPC over HTTP/JSON. This guide explains the common request format and special workflows you should understand before working with individual operations.
 
-The document itself is derived from the ConnectRPC service definitions: an operation appears here
-when it is declared to have no side effects, or when it is explicitly annotated as writable by an
-API key. Adding, changing, or removing an operation in the backend changes this reference.
+For complete request and response schemas, see the [**API Reference**](https://docs.sterndesk.com/api-reference/upload-the-files-of-a-manual-upload).
 
 ## Calling an operation
 
-Each operation is a Connect RPC, so every page shows `POST` against a path under `/rpc/`. Send a
-JSON body and the `Connect-Protocol-Version: 1` header, and authenticate with
-`Authorization: Bearer <key>`. The playground on each page fills these in for you.
+Sterndesk API operations are sent as `POST` requests to paths under `/rpc/`.
 
-## Uploading documents
+Authenticate each request using your personal API key:
 
-Uploading candidate documents is the one write operation, and it takes two calls:
-`CreateManualUpload` returns a signed, time-limited instruction, and the files are then sent to
-Transloadit. That second call is documented as **Upload the files of a manual upload**; it is served
-by Transloadit rather than by Sterndesk, so it does not take a Sterndesk API key.
+```text
+Authorization: Bearer <API_KEY>
+```
 
-Send the `params` and `signature` values exactly as `CreateManualUpload` returned them. The
-signature covers those exact bytes, so re-serialising the JSON invalidates it.
+Requests also require the following headers:
+
+```text
+Connect-Protocol-Version: 1
+Content-Type: application/json
+```
+
+A typical request looks like this:
+
+```text
+curl https://edge.sterndesk.com/rpc/<service>/<operation> \
+  --header "Authorization: Bearer $STERNDESK_API_KEY" \
+  --header "Connect-Protocol-Version: 1" \
+  --header "Content-Type: application/json" \
+  --data '{"echo":"bar"}'
+```
+
+The exact path and JSON body depend on the operation you are calling.
+
+See the [**API Reference**](https://docs.sterndesk.com/api-reference/upload-the-files-of-a-manual-upload) for available operations and their request and response schemas.
+
+## Uploading candidate documents
+
+Uploading candidate documents is different from a standard Sterndesk API request because the upload happens in two steps.
+
+### 1. Create the upload
+
+Call `CreateManualUpload` to create a manual upload.
+
+The operation returns signed, time-limited `params` and `signature` values that are required to upload the files.
+
+Your API key must include the following permission:
+
+```text
+sterndesk:documents:write
+```
+
+### 2. Upload the files
+
+Send the candidate documents to Transloadit using the `params` and `signature` returned by `CreateManualUpload`.
+
+This request is sent directly to Transloadit rather than to the Sterndesk API, so it does not require your Sterndesk API key.
+
+<Info>
+  **Important:** Send the `params` and `signature` values exactly as they were returned by `CreateManualUpload`. Re-serializing the JSON can invalidate the signature.
+</Info>
+
+See [**Upload the files of a manual upload**](https://docs.sterndesk.com/api-reference/upload-the-files-of-a-manual-upload) in the API Reference for the complete request specification.
+
+## Explore the API Reference
+
+Use the [**API Reference**](https://docs.sterndesk.com/api-reference/upload-the-files-of-a-manual-upload) to explore all operations currently available through the Sterndesk API.
+
+Each operation includes its request format, parameters, request and response schemas, and authentication requirements.
+
+[**Explore the API Reference →**](https://docs.sterndesk.com/api-reference/upload-the-files-of-a-manual-upload)
