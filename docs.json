@@ -21,7 +21,8 @@
             "pages": [
               "index",
               "untitled-page",
-              "quickstart"
+              "quickstart",
+              "authentication"
             ]
           },
           {
