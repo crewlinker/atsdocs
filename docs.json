@@ -19,7 +19,8 @@
           {
             "group": "Get started",
             "pages": [
-              "index"
+              "index",
+              "untitled-page"
             ]
           },
           {
