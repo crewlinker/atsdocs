@@ -4,7 +4,8 @@
   "name": "Sterndesk",
   "colors": {
     "primary": "#2A6FF5",
-    "light": "#2A6FF5"
+    "light": "#2A6FF5",
+    "dark": "#2B6FF5"
   },
   "logo": {
     "light": "/logo.svg",
