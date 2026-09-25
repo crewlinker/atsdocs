@@ -47,5 +47,6 @@
   },
   "thumbnails": {
     "background": "/images/{DeveloperDocumentation}.png"
-  }
+  },
+  "description": "Developer documentation for the Sterndesk API. Learn how to authenticate, integrate Sterndesk with your tools and workflows, and explore the API reference."
 }
