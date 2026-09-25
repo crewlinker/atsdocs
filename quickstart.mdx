@@ -26,14 +26,13 @@ Choose a descriptive name so you can identify what the key is being used for lat
 
 Select the permissions required by your integration and create the key.
 
-> **Important**<br />Your API key is shown only once after creation. Copy and store it securely. You won't be able to view the full key again.
+<Info>
+  **Important**<br />Your API key is shown only once after creation. Copy and store it securely. You won't be able to view the full key again.
+</Info>
 
 ### 2. Store your API key
 
 For local development, you can store your API key in an environment variable:
-
-```text
-```
 
 ```text
 export STERNDESK_API_KEY="your-api-key"
@@ -44,9 +43,6 @@ Avoid hard-coding API keys directly into your application.
 ### 3. Make your first request
 
 Use the `WhoAmI` operation to verify that your API key is working.
-
-```text
-```
 
 ```text
 curl https://edge.sterndesk.com/rpc/rpc.v1.RootService/WhoAmI \
