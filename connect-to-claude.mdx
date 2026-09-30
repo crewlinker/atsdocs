@@ -47,19 +47,11 @@ Under **Authentication**, select **No sign-in**.
 
 Sterndesk Recruit authenticates requests using your personal API key.
 
-Under **Request headers**, add:
+Under **Request headers**, add:<br />**Header:** `authorization`<br />**Value:** `Bearer YOUR_API_KEY`
 
-**Header:** `authorization`
+Enable **Required** for this header.<br />Replace `YOUR_API_KEY` with your personal Sterndesk API key.
 
-**Value:** `Bearer YOUR_API_KEY`
-
-Enable **Required** for this header.
-
-Replace `YOUR_API_KEY` with your personal Sterndesk API key.
-
-For example:
-
-**Bearer sk\_...**
+For example:<br />**Bearer sk\_...**
 
 <Info>
   **Important:** There must be a space between `Bearer` and your API key.
@@ -77,9 +69,7 @@ Open **Sterndesk: Recruit** from your connectors. Once the connection is success
 
 ![Verify The Connection](/Verify-the-connection.png "Verify The Connection")
 
-**Sterndesk Recruit tools available to Claude after a successful connection.**
-
-You can also control when Claude is allowed to use individual tools from this screen.
+**Sterndesk Recruit tools available to Claude after a successful connection.**<br />You can also control when Claude is allowed to use individual tools from this screen.
 
 ## 5. Try the connection
 
