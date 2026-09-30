@@ -2,3 +2,103 @@
 title: "Connect to Claude"
 description: "Connect Claude to Sterndesk Recruit and access your recruitment data directly from your conversations."
 ---
+
+Connect Sterndesk Recruit to Claude using a custom MCP connector.
+
+Once connected, Claude can use Sterndesk Recruit tools to search and retrieve recruitment information directly from your Sterndesk organization.
+
+## Before you start
+
+Make sure you have:
+
+- Access to Sterndesk Recruit
+- A personal Sterndesk API key
+- Access to custom connectors in Claude or Claude Desktop
+
+If you don't have an API key yet, follow the **Authentication** guide before continuing.
+
+## 1. Open Connectors
+
+In Claude or Claude Desktop:
+
+1. Open **Settings**.
+2. Go to **Connectors**.
+3. Click **\+ Add** to add a custom connector.
+
+## 2. Add Sterndesk Recruit
+
+Enter the following MCP server URL:
+
+[**https://edge.sterndesk.com/mcp**](https://edge.sterndesk.com/mcp)
+
+For the connector name, we recommend:
+
+**Sterndesk: Recruit**
+
+> **Note:** Claude allows you to choose your own name when adding a custom connector. We recommend **Sterndesk: Recruit** to make it easy to distinguish Recruit from other Sterndesk products and integrations.
+
+**Тут вставити screenshot налаштування connector.**
+
+Я б зробила новий screenshot замість поточного Іллі, тому що на ньому зараз test URL та назва просто `Sterndesk`.
+
+## 3. Configure authentication
+
+Under **Authentication**, select **No sign-in**.
+
+Sterndesk Recruit authenticates requests using your personal API key.
+
+Under **Request headers**, add:
+
+**Header:** `authorization`
+
+**Value:** `Bearer YOUR_API_KEY`
+
+Enable **Required** for this header.
+
+Replace `YOUR_API_KEY` with your personal Sterndesk API key.
+
+For example:
+
+**Bearer sk\_...**
+
+> **Important:** There must be a space between `Bearer` and your API key.
+
+Your API key will be sent with requests from Claude to the Sterndesk Recruit MCP server.
+
+## 4. Add the connector
+
+Click **Add** to finish the setup.
+
+Sterndesk Recruit will now appear in your Claude connectors.
+
+Claude can use the available Sterndesk Recruit tools when they are relevant to your request.
+
+## 5. Try the connection
+
+Start a new conversation in Claude and ask it to retrieve information from Sterndesk Recruit.
+
+For example:
+
+> Find Chief Engineers with PSV experience.
+
+You can also ask Claude to retrieve information about a particular candidate:
+
+> Show me the profile information for [candidate name].
+
+Claude will use the appropriate Sterndesk Recruit tools to retrieve the requested information.
+
+## What Claude can do
+
+The current integration is intended for retrieving Sterndesk Recruit data.
+
+Claude can use the read methods exposed through the MCP server to search for crew and retrieve information available through your Sterndesk account.
+
+Actions that modify Sterndesk data are not currently documented for general use.
+
+## Keep your API key secure
+
+Your API key provides access to your Sterndesk data and should be treated like a password.
+
+Do not share your API key with other users, paste it into conversations, include it in screenshots, or expose it in source code or public repositories.
+
+If you believe your API key has been exposed, revoke it in Sterndesk and create a new one.
