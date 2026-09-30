@@ -30,6 +30,13 @@
             "pages": [
               "api-reference/overview"
             ]
+          },
+          {
+            "group": "MCP",
+            "pages": [
+              "mcp-overview",
+              "connect-to-claude"
+            ]
           }
         ]
       },
