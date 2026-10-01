@@ -37,11 +37,24 @@ Sign in to Sterndesk and go to:
   className="hidden dark:block"
 />
 
-Click **Create API key** and configure your key.
+<img
+  alt="Personal API keys"
+  title="37"
+  lightAlt="Personal API keys"
+  darkAlt="Personal API keys"
+  src="/images/Personal-API-keys-2.png"
+  className="dark:hidden"
+/>
+<img
+  alt="Personal API keys"
+  title="37"
+  lightAlt="Personal API keys"
+  darkAlt="Personal API keys"
+  src="/images/Personal-API-keys-3.png"
+  className="hidden dark:block"
+/>
 
-Choose a descriptive name so you can identify what the key is being used for later.
-
-Select the permissions required by your integration and create the key.
+Click **Create API key** and configure your key.<br />Choose a descriptive name so you can identify what the key is being used for later.<br />Select the permissions required by your integration and create the key.
 
 <Info>
   **Important**<br />Your API key is shown only once after creation. Copy and store it securely. You won't be able to view the full key again.
@@ -73,11 +86,17 @@ The request authenticates using your personal API key and returns information as
 
 If the request succeeds, your API key is configured correctly and you can start calling other available operations.
 
+### Using Sterndesk with AI assistants
+
+Want to use Sterndesk Recruit directly from an AI assistant?
+
+Sterndesk Recruit supports the Model Context Protocol (MCP), allowing supported AI clients to securely access your recruitment data using your Sterndesk API key.
+
+See [**MCP overview**](/mcp-overview) to get started.
+
 ### 4. Explore the API
 
-Sterndesk uses Connect RPC over HTTP/JSON.
-
-API operations are sent as `POST` requests to paths under `/rpc/`.
+Sterndesk uses Connect RPC over HTTP/JSON.<br />API operations are sent as `POST` requests to paths under `/rpc/`.
 
 Requests typically include:
 
