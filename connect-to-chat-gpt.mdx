@@ -1,0 +1,125 @@
+---
+title: "Connect to ChatGPT"
+description: "Connect Sterndesk Recruit to ChatGPT using the Sterndesk MCP server."
+---
+
+Once connected, ChatGPT can use Sterndesk Recruit tools to retrieve recruitment data directly from your conversations.
+
+## Before you start
+
+You need:
+
+- Access to Sterndesk Recruit.
+- Access to **Plugins** in ChatGPT.
+- A Sterndesk account with access to the organization you want to use.
+
+Sterndesk Recruit uses **OAuth** to authenticate the MCP connection. You do not need to create or manually enter a Sterndesk API key.
+
+> **Production MCP server:** `https://edge.sterndesk.com/mcp`
+
+For internal testing, we used:
+
+> `https://edge.test.sterndesk.com/mcp`
+
+---
+
+## 1. Create a custom MCP server
+
+In ChatGPT:
+
+1. Open **Plugins**.
+2. Click **Add**.
+3. Select **Create custom MCP server**.
+4. Enter:
+   - **Name:** `Sterndesk: Recruit`
+   - **Description:** `Access Sterndesk Recruit data and tools from ChatGPT.`
+   - **Connection:** `Server URL`
+   - **Server URL:** `https://edge.sterndesk.com/mcp`
+   - **Authentication:** `OAuth`
+5. Confirm **I understand and want to continue**.
+6. Click **Create as a plugin**.
+
+**Screenshot to use here:** the screenshot where the **Create custom MCP server** modal is open. Your latest useful version is the one showing the Authentication dropdown with `OAuth`, `No authentication`, and `OAuth or no authentication`.
+
+For the documentation screenshot, I would ideally retake this screen with the **production URL** instead of `edge.test.sterndesk.com`, if the current screenshot contains the test URL.
+
+---
+
+## 2. Authorize Sterndesk Recruit
+
+After creating the plugin, ChatGPT starts the OAuth authorization flow.
+
+Click **Continue to Sterndesk: Recruit**.
+
+You may be asked to:
+
+- Sign in to Sterndesk.
+- Select your organization.
+- Approve access to Sterndesk Recruit.
+
+After authorization, ChatGPT returns you to the plugin.
+
+**Screenshot to use here:** your screen with:
+
+> **Connect Sterndesk: Recruit**<br />**Approved by your admin**<br />**Continue to Sterndesk: Recruit**
+
+**Suggested caption:**<br />_Continue to Sterndesk Recruit to authorize the MCP connection._
+
+---
+
+## 3. Verify the connected account
+
+Open **Plugins → Personal → Sterndesk: Recruit**.
+
+Under **Connected accounts**, your Sterndesk account should appear as connected.
+
+From this page, click **Try in chat** to start using Sterndesk Recruit.
+
+**Screenshot to use here:** your screenshot showing the Sterndesk Recruit plugin page with:
+
+- `Sterndesk: Recruit`
+- `Connected accounts`
+- the connected account marked `Primary`
+- `Try in chat`
+
+**Suggested caption:**<br />_After authorization, your Sterndesk account appears under Connected accounts._
+
+---
+
+## 4. Test the connection
+
+Start with:
+
+> `Who am I in Sterndesk and which organization am I in?`
+
+ChatGPT should use the Sterndesk Recruit MCP connection and return information about the authenticated Sterndesk user and organization.
+
+We successfully verified this during testing.
+
+**Screenshot to use here:** your latest successful result showing ChatGPT returning the Sterndesk user, role, and organization.
+
+**Suggested caption:**<br />_ChatGPT can now retrieve information from the connected Sterndesk Recruit organization._
+
+For public documentation, I recommend **not using this screenshot as-is**, because it contains a person's name and organization name. Retake it with safe demo data or blur those values.
+
+---
+
+## Example prompts
+
+Once connected, users can ask ChatGPT to work with Sterndesk Recruit data. For example:
+
+> `Find Chief Officers with tanker experience, page 1, 20 per page.`
+
+> `Show the STCW certificates and sea service of <candidate name>.`
+
+> `Which candidates best match the open <rank> posting?`
+
+The MCP server exposes Sterndesk Recruit tools to ChatGPT, and ChatGPT selects the appropriate tools based on the request.
+
+## Authentication
+
+ChatGPT connects to Sterndesk Recruit using **OAuth**.
+
+During authorization, the user signs in to Sterndesk and grants ChatGPT access. Access remains limited to the Sterndesk account and organization the authenticated user is allowed to access.
+
+Unlike the Claude Desktop setup, **you do not need to manually configure an** `Authorization `**header or paste a personal API key into ChatGPT**.
