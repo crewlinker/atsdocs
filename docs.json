@@ -20,7 +20,7 @@
           {
             "group": "Get started",
             "pages": [
-              "untitled-page",
+              "introduction",
               "quickstart",
               "authentication"
             ]
