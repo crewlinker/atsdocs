@@ -20,7 +20,7 @@
           {
             "group": "Get started",
             "pages": [
-              "untitled-page",
+              "introduction",
               "quickstart",
               "authentication"
             ]
@@ -65,5 +65,11 @@
         "label": "Sterndesk.com"
       }
     ]
-  }
+  },
+  "redirects": [
+    {
+      "source": "/untitled-page",
+      "destination": "/introduction"
+    }
+  ]
 }
