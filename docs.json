@@ -66,4 +66,11 @@
       }
     ]
   }
+  },
+  "redirects": [
+    {
+      "source": "/untitled-page",
+      "destination": "/introduction"
+    }
+  ]
 }
