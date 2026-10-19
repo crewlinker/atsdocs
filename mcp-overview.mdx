@@ -5,7 +5,7 @@ description: "Connect Sterndesk Recruit to AI assistants using the Model Context
 
 Sterndesk Recruit supports the Model Context Protocol (MCP), allowing AI assistants to connect directly to your Sterndesk Recruit data and tools.
 
-With MCP, you can use supported AI assistants such as Claude to find and retrieve recruitment information without manually switching between Sterndesk and your AI assistant.
+With MCP, you can use supported AI assistants such as [Claude](/connect-to-claude) and [ChatGPT](/connect-to-chat-gpt) to find and retrieve recruitment information without manually switching between Sterndesk and your AI assistant.
 
 For example, you can ask:
 
@@ -25,8 +25,6 @@ The production MCP server is available at:
 
 [**https://edge.sterndesk.com/mcp**](https://edge.sterndesk.com/mcp)
 
-Access is authenticated using your Sterndesk personal API key.
-
 ## What you can access
 
 The current MCP integration provides access to Sterndesk Recruit methods available for reading data.
@@ -37,22 +35,21 @@ The currently documented MCP integration is intended for retrieving data. Action
 
 ## Authentication
 
-Sterndesk Recruit MCP uses the same personal API keys as the Sterndesk API.
+Sterndesk Recruit MCP supports OAuth authentication for connecting supported AI assistants, including [Claude Desktop](/connect-to-claude) and [ChatGPT](/connect-to-chat-gpt).
 
-If you don't have an API key yet, follow the [**Authentication**](/authentication) guide to create and manage your API key before setting up the connector.
+When configuring the connector, select OAuth authentication and follow the connection process provided by your AI assistant.
 
-The API key is sent to the MCP server using the `Authorization` request header:
+You do not need to create a personal API key or manually configure an Authorization header when connecting through OAuth.
 
-**Bearer YOUR_API_KEY**
-
-There must be a space between `Bearer` and your API key.
-
-<Warning>
-  **Keep your API key secure.** Treat it like a password and never share it in conversations, screenshots, source code, or other public locations.
-</Warning>
+Personal API keys remain available for accessing the Sterndesk REST API. See the [Authentication](/authentication) guide for details.
 
 ## Connect an AI assistant
 
 You can add Sterndesk Recruit as a custom connector in supported AI assistants.
 
-To get started with Claude, follow the [**Connect to Claude**](/connect-to-claude) guide.
+Follow the setup guide for your preferred assistant:
+
+- [Connect to Claude](/connect-to-claude)
+- [Connect to ChatGPT](/connect-to-chat-gpt)
+
+For more information about the Sterndesk API, see the [API overview](/api-reference/overview).
