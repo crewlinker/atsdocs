@@ -1,9 +1,111 @@
 ---
 title: "Connect to Claude Desktop"
-description: "Connect Claude Desktop to Sterndesk Recruit and access your recruitment data directly from your conversations."
+description: "Connect Sterndesk Recruit to Claude Desktop using the Model Context Protocol (MCP). Once connected, Claude can access Sterndesk Recruit tools and retrieve recruitment data directly from your conversations."
 ---
 
 ![Image](/images/image-1.png "Image")
+
+## Before you start
+
+Make sure you have:
+
+- An active Sterndesk Recruit account.
+- Claude Desktop with access to custom connectors.
+
+Sterndesk Recruit supports OAuth authentication for MCP connections. You do not need to create or manually enter a personal API key.
+
+## Step 1. Open Connectors
+
+1. Open Claude Desktop.
+2. Go to **Settings → Connectors**.
+3. Click **\+ Add**.
+4. Select the option to add a custom connector.
+
+## Step 2. Add Sterndesk Recruit
+
+Enter the following details:
+
+<table>
+  <colgroup>
+    <col width="148" />
+    <col width="319" />
+  </colgroup>
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Name</td>
+      <td>Sterndesk: Recruit</td>
+    </tr>
+    <tr>
+      <td>MCP Server URL</td>
+      <td>`https://edge.sterndesk.com/mcp`</td>
+    </tr>
+  </tbody>
+</table>
+
+Click **Continue**.
+
+The connector name is a recommendation. You can choose a different name if needed.
+
+## Step 3. Configure OAuth authentication
+
+In the connector authentication settings:
+
+1. Under **Authentication**, select **Sign in now**.
+2. Under **OAuth client**, select **Use Claude's published identity**.
+3. Leave **Request headers** empty.
+4. Click **Add** to continue.
+
+Claude detects the server's OAuth configuration and uses it to authorize access.
+
+## Step 4. Authorize Sterndesk Recruit
+
+When prompted to connect:
+
+1. Continue to the Sterndesk authentication page.
+2. Sign in to your Sterndesk account.
+3. Select your organization if requested.
+4. Approve the requested access.
+
+Complete the authorization process to connect Claude Desktop to Sterndesk Recruit.
+
+## Step 5. Start using Sterndesk Recruit
+
+After connecting, open a conversation in Claude Desktop and try:
+
+**Check your account**
+
+"Who am I in Sterndesk and which organization am I in?"
+
+**Find candidates**
+
+"Find Chief Officers with tanker experience, page 1, 20 per page."
+
+**View candidate information**
+
+"Show the STCW certificates and sea service of [candidate name]."
+
+**Find matching candidates**
+
+"Which candidates best match the open Chief Engineer posting?"
+
+Claude uses the available Sterndesk Recruit MCP tools to retrieve relevant information.
+
+## Authentication and security
+
+Sterndesk Recruit uses OAuth to authorize MCP access.
+
+- You sign in using your Sterndesk account.
+- Access is limited to your authorized organization and permissions.
+- You do not need to manually configure authorization headers.
+- You can manage the connector from Claude Desktop settings.
+
+For additional information about Sterndesk Recruit MCP capabilities, see the MCP overview.
 
 Connect Sterndesk Recruit to Claude Desktop using a custom MCP connector.
 
