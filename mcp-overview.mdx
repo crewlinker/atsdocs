@@ -41,24 +41,15 @@ When configuring the connector, select OAuth authentication and follow the conne
 
 You do not need to create a personal API key or manually configure an Authorization header when connecting through OAuth.
 
-Personal API keys remain available for accessing the Sterndesk REST API. See the [Authentication](https://docs.sterndesk.com/authentication) guide for details.
-
-Sterndesk Recruit MCP uses the same personal API keys as the Sterndesk API.
-
-If you don't have an API key yet, follow the [**Authentication**](/authentication) guide to create and manage your API key before setting up the connector.
-
-The API key is sent to the MCP server using the `Authorization` request header:
-
-**Bearer YOUR_API_KEY**
-
-There must be a space between `Bearer` and your API key.
-
-<Warning>
-  **Keep your API key secure.** Treat it like a password and never share it in conversations, screenshots, source code, or other public locations.
-</Warning>
+Personal API keys remain available for accessing the Sterndesk REST API. See the [Authentication](/authentication) guide for details.
 
 ## Connect an AI assistant
 
 You can add Sterndesk Recruit as a custom connector in supported AI assistants.
 
-To get started with Claude, follow the [**Connect to Claude**](/connect-to-claude) guide.
+Follow the setup guide for your preferred assistant:
+
+- [Connect to Claude](https://docs.sterndesk.com/connect-to-claude)
+- [Connect to ChatGPT](https://docs.sterndesk.com/connect-to-chat-gpt)
+
+For more information about the Sterndesk API, see the [API overview](https://docs.sterndesk.com/api-reference/overview).
